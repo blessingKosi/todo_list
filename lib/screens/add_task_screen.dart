@@ -40,7 +40,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   dispose() {
     _dateController.dispose();
     super.dispose();
-
   }
 
   _handleDatePicker() async {
@@ -74,7 +73,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       if (widget.task == null) {
         task.status = 0;
         DataBaseHelper.instance.insertTask(task);
-      }else {
+      } else {
         task.id = widget.task.id;
         task.status = widget.task.status;
         DataBaseHelper.instance.updateTask(task);
@@ -104,7 +103,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                SizedBox(height: 20.0,),
+                SizedBox(
+                  height: 20.0,
+                ),
                 Text(
                   widget.task == null ? 'Add task' : 'Update Task',
                   style: TextStyle(
@@ -113,7 +114,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10.0,),
+                SizedBox(
+                  height: 10.0,
+                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -129,7 +132,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          validator: (input) => input.trim().isEmpty ? 'Please enter a task title' : null,
+                          validator: (input) => input.trim().isEmpty
+                              ? 'Please enter a task title'
+                              : null,
                           onSaved: (input) => _title = input,
                           initialValue: _title,
                         ),
@@ -158,7 +163,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           iconSize: 22.0,
                           iconEnabledColor: Theme.of(context).primaryColor,
                           items: _priorities.map((String priority) {
-                            return DropdownMenuItem(value: priority,
+                            return DropdownMenuItem(
+                              value: priority,
                               child: Text(
                                 priority,
                                 style: TextStyle(
@@ -176,7 +182,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          validator: (input) =>_priority == null
+                          validator: (input) => _priority == null
                               ? 'Please select a priority level'
                               : null,
                           onChanged: (value) {
@@ -195,38 +201,41 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: FlatButton(
+                        child: TextButton(
                           child: Text(
                             widget.task == null ? 'Add' : 'Update',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
-                          ),
+                            ),
                           ),
                           onPressed: _submit,
                         ),
                       ),
-                      widget.task != null ? Container(
-                        margin: EdgeInsets.symmetric(vertical: 20.0),
-                        height: 60.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: FlatButton(
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                          onPressed: _delete,
-                      ),) : SizedBox.shrink(),
+                      widget.task != null
+                          ? Container(
+                              margin: EdgeInsets.symmetric(vertical: 20.0),
+                              height: 60.0,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: TextButton(
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                                onPressed: _delete,
+                              ),
+                            )
+                          : SizedBox.shrink(),
                     ],
                   ),
-               ),
+                ),
               ],
             ),
           ),
